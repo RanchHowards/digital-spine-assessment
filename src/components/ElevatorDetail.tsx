@@ -1,5 +1,6 @@
-import { Modal } from "antd";
+import { Divider, Modal } from "antd";
 import { Elevator } from "../types/elevator";
+import Chart from "./Chart";
 type ElevatorDetailProps = {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -25,7 +26,11 @@ const ElevatorDetail: React.FC<ElevatorDetailProps> = ({
             {key}: {value}
           </p>
         ))}
-      {/* add Chart */}
+      {elevator.chart && (
+        <>
+          <Divider /> <Chart data={elevator.chart} />
+        </>
+      )}
     </Modal>
   );
 };

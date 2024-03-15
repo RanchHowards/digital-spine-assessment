@@ -1,4 +1,4 @@
-import { Col, Layout, List, Row } from "antd";
+import { Layout, List, Row } from "antd";
 import { Header, Content, Footer } from "antd/es/layout/layout";
 import "./App.css";
 import jsonData from "./db.json";

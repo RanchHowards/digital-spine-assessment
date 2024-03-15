@@ -7,9 +7,9 @@ export interface Elevator {
   productionYear: number;
   elevatorType: "Passenger" | "Freight";
   state: "operational" | "warning" | "out-of-order";
-  chart?: Chart;
+  chart?: ChartType;
 }
-export interface Chart {
+export interface ChartType {
   name: "door_cycle_count_over_time";
   data: DoorCycleCount[];
 }
