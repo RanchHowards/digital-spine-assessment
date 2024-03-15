@@ -1,24 +1,48 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Col, Layout, List, Row } from "antd";
+import { Header, Content, Footer } from "antd/es/layout/layout";
+import "./App.css";
+import jsonData from "./db.json";
+import Count from "./components/Count";
+import { Elevator } from "./types/elevator";
 
 function App() {
+  const layoutStyle = {
+    height: "100%",
+  };
+  const data = jsonData["elevate-industries"] as Elevator[];
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <div className="App" style={{ height: "100vh" }}>
+      <Layout style={layoutStyle}>
+        <Header style={{ backgroundColor: "green" }}>Header</Header>
+        <Content
+          style={{
+            height: "100%",
+            padding: "1em",
+          }}
         >
-          Learn React
-        </a>
-      </header>
+          <Row gutter={16}>
+            <Count data={data} title={"Operational"} state={"operational"} />
+            <Count data={data} title={"Warning"} state={"warning"} />
+            <Count
+              data={data}
+              title={"Out of Service"}
+              state={"out-of-service"}
+            />
+          </Row>
+          <Row>
+            <List
+              size="small"
+              header={<div>Header</div>}
+              footer={<div>Footer</div>}
+              bordered
+              dataSource={data}
+              renderItem={(item) => <List.Item>test</List.Item>}
+            />
+          </Row>
+        </Content>
+        <Footer>Footer</Footer>
+      </Layout>
     </div>
   );
 }
