@@ -22,12 +22,19 @@ function App() {
           }}
         >
           <Row gutter={16}>
-            <Count data={data} title={"Operational"} state={"operational"} />
-            <Count data={data} title={"Warning"} state={"warning"} />
             <Count
-              data={data}
+              data={data.filter((elevator) => elevator.state === "operational")}
+              title={"Operational"}
+            />
+            <Count
+              data={data.filter((elevator) => elevator.state === "warning")}
+              title={"Warning"}
+            />
+            <Count
+              data={data.filter(
+                (elevator) => elevator.state === "out-of-order"
+              )}
               title={"Out of Service"}
-              state={"out-of-service"}
             />
           </Row>
           <Row>

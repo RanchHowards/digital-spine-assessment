@@ -6,7 +6,7 @@ export interface Elevator {
   manufacturerName: string;
   productionYear: number;
   elevatorType: "Passenger" | "Freight";
-  state: "operational" | "warning" | "out-of-service";
+  state: "operational" | "warning" | "out-of-order";
   chart?: Chart;
 }
 export interface Chart {
