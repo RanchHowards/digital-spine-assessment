@@ -17,7 +17,7 @@ const Chart: React.FC<ChartProps> = ({ data }) => {
   return (
     <BarChart
       width={450}
-      height={300}
+      height={450}
       data={data.data.map((item) => ({
         Cycles: item.door_cycles_count,
         Openings: item.door_openings_count,

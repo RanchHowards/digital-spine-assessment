@@ -16,6 +16,7 @@ const ElevatorDetail: React.FC<ElevatorDetailProps> = ({
     <Modal
       title={elevator.deviceIdentificationNumber}
       open={open}
+      destroyOnClose={true}
       onOk={() => setOpen(false)}
       onCancel={() => setOpen(false)}
     >
