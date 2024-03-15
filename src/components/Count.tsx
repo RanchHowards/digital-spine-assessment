@@ -1,6 +1,7 @@
 import { Card, Col, List } from "antd";
 import { Elevator } from "../types/elevator";
 import { useState } from "react";
+import ElevatorDetail from "./ElevatorDetail";
 type CountProps = {
   data: Elevator[];
   title: string;
@@ -8,8 +9,15 @@ type CountProps = {
 
 const Count: React.FC<CountProps> = ({ title, data }) => {
   const [showCount, setShowCount] = useState(true);
+  const [open, setOpen] = useState(false);
   const clickHandler = () => {
     setShowCount(!showCount);
+  };
+  const handleListItemClick = (e: React.MouseEvent<HTMLElement>) => {
+    //this doesn't work bc state is resetting
+    //may need to add central store :(
+    e.stopPropagation();
+    setOpen(true);
   };
 
   return (
@@ -23,7 +31,18 @@ const Count: React.FC<CountProps> = ({ title, data }) => {
               dataSource={data}
               size="small"
               renderItem={(item) => (
-                <List.Item>{item.deviceIdentificationNumber}</List.Item>
+                <>
+                  <ElevatorDetail
+                    open={open}
+                    setOpen={setOpen}
+                    elevator={item}
+                  />
+                  <List.Item style={{ justifyContent: "center" }}>
+                    <span onClick={handleListItemClick}>
+                      {item.deviceIdentificationNumber}
+                    </span>
+                  </List.Item>
+                </>
               )}
             />
           )}
