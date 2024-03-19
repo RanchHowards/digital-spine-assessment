@@ -13,7 +13,7 @@ const Dashboard: React.FC<DashboardProps> = ({ data }) => {
     <Spin size="large" />
   ) : (
     <>
-      <Row gutter={16}>
+      <Row data-cy="dashboard" gutter={16}>
         <Count
           data={data.filter((elevator) => elevator.state === "operational")}
           title={"Operational"}
