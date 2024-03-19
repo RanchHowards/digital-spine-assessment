@@ -71,6 +71,7 @@ npm run dev
 - Backend Tests w/ Jest & Supertest
   - Yes, these tests are missing, and to be honest I tried to set them up but ran into auth issues that I wasted too much time on & simply decided to throw in the towel.
 - The UI is very minimalistic, which I am a fan of, however I know that it is not acceptable to the majority of the public. Time could be invested to make it prettier.
+- Error handling on the server
 - I simply uploaded the JSON files that were given to me to Mongo. All of the elevator data should be split into individual documents in a separate collection with more time.
 - The step linking a user to an organization needs to be automated.
 - The data should be validated & properly handled. I noticed some of the dates were in the future and a plan should be made for how to handle such situations.
