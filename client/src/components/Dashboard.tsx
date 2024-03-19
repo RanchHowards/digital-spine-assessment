@@ -1,36 +1,18 @@
-import { Row, Col, Card } from "antd";
+import { Row, Col, Card, Spin } from "antd";
 import Count from "./Count";
 import ElevatorList from "./ElevatorList";
-import LogoutButton from "./LogoutButton";
-import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Elevator } from "../types/elevator";
-import { useAuth0 } from "@auth0/auth0-react";
-import { User } from "../types/user";
 
-type DashboardProps = {};
+type DashboardProps = { data: Elevator[] };
 
-const Dashboard: React.FC<DashboardProps> = () => {
-  const [data, setData] = useState<Elevator[]>([]);
+const Dashboard: React.FC<DashboardProps> = ({ data }) => {
   const [viewed, setViewed] = useState<Elevator[]>([]);
-  const { getAccessTokenSilently } = useAuth0();
-  useEffect(() => {
-    const callApi = async () => {
-      const token = await getAccessTokenSilently();
-      const config = { headers: { Authorization: `Bearer ${token}` } };
-      axios
-        .get<User>(process.env.REACT_APP_API_AUDIENCE as string, config)
-        .then((response) => {
-          setData(response?.data.organization.elevators);
-        })
-        .catch((error) => console.error("AXIOS error fetching data: ", error));
-    };
-    callApi();
-  }, [getAccessTokenSilently]);
 
-  return (
+  return data.length === 0 ? (
+    <Spin size="large" />
+  ) : (
     <>
-      <LogoutButton />
       <Row gutter={16}>
         <Count
           data={data.filter((elevator) => elevator.state === "operational")}

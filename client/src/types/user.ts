@@ -1,7 +1,7 @@
 import { Elevator } from "./elevator";
 
 type Organization = {
-  name: String;
+  name: string;
   elevators: Elevator[];
 };
 
