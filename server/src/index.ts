@@ -1,7 +1,9 @@
 import express, { Application } from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
-import ClientModel from "./models/Client";
+import cors from "cors";
+import { auth } from "express-oauth2-jwt-bearer";
+import UserModel from "./models/User";
 
 dotenv.config();
 
@@ -15,20 +17,33 @@ mongoose
     console.log("ERROR: ", err);
   });
 
-app.get("/api/clients", async (req, res) => {
+const checkJwt = auth({
+  audience: process.env.API_AUDIENCE,
+  issuerBaseURL: process.env.ISSUER_BASE_URL,
+  tokenSigningAlg: "RS256",
+});
+
+app.use(cors());
+
+app.get("/api/users", checkJwt, async (req, res) => {
   try {
-    const clients = await ClientModel.find();
-    res.json(clients);
+    const auth = req.auth;
+    if (!auth) throw new Error("No user found");
+    const { payload } = auth;
+    const users = await UserModel.findOne({ user: payload.sub }).populate(
+      "organization"
+    );
+    res.json(users);
   } catch (error) {
     console.error(error);
     res.status(500).send("Server Error");
   }
 });
 
-app.get("*", (req, res) => {
-  res.send("Nothing found");
+app.get("*", (_, res) => {
+  res.send("Nothing here");
 });
 
 app.listen(port, () => {
-  console.log(`Server is found at http://localhost:${port}`);
+  console.log(`Server is found at Port:${port}`);
 });
