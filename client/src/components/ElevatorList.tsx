@@ -14,15 +14,16 @@ const ElevatorList: React.FC<ElevatorListParams> = ({ data, setViewed }) => {
     e: React.MouseEvent<HTMLElement>,
     elevator: Elevator
   ) => {
-    //state resets... should probably fix
     e.stopPropagation();
     setViewed((old) => [
       elevator,
-      ...old.filter(
-        (item) =>
-          item.deviceIdentificationNumber !==
-          elevator.deviceIdentificationNumber
-      ),
+      ...old
+        .filter(
+          (item) =>
+            item.deviceIdentificationNumber !==
+            elevator.deviceIdentificationNumber
+        )
+        .slice(0, 4),
     ]);
 
     setOpen(true);
